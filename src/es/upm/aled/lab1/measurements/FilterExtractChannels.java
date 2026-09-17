@@ -21,21 +21,27 @@ public class FilterExtractChannels implements Filter {
 	@Override
 	public EEGModel applyFilter(EEGModel eeg) {
 		Measurement[] newmeasurements = new Measurement[eeg.measurements.size()];
+		Measurement tempmeasurement;
 		int contador = 0;
 		for(int i=0; i<eeg.measurements.size();i++) {
 			for(int j=0; j<eeg.measurements.get(i).numChannels();j++) {
 				if(j == newChannels[contador]) {
-					float[] channels = new float[newChannels.length];
-					channels[contador]= eeg.measurements.get(i).getChannel(j);
+					tempmeasurement= eeg.measurements.get(i).getChannel(j);
 					contador++;
 					//TODO encontrar la forma de crear diferentes channels por cada iteraión
 				}
 				else { 
 					continue;
 				}
-			
+				
+				}
+			if(tempmeasurement.numChannels() == 0) {
+				continue;
+			} else {
+				newmeasurements[i]=tempmeasurement;
+				tempmeasurement=null;
+				
 			}
-		//TODO rellenar
 		
 		}
 		EEGModel neweeg = new EEGModel(newmeasurements);

@@ -56,8 +56,12 @@ public class EEGModel {
 	 * @param measurements The Measurements that make up the EEGModel.
 	 */
 	public EEGModel(Measurement[] measurements) {
-		// TODO
-		
+		List<Measurement> listmeasurements = new ArrayList<>();
+		for(Measurement m : measurements){
+			listmeasurements.add(m);
+		}
+		this.measurements=listmeasurements;
+		//Done
 	}
 
 	/**
@@ -89,9 +93,10 @@ public class EEGModel {
 	 * @return The new EEGModel.
 	 */
 	public EEGModel filter(Filter filter) {
-		// TODO
-		
-		return null;
+		EEGModel feeg = new EEGModel();
+		filter.applyFilter(feeg);
+		return feeg;
+		//Done
 	}
 
 	/**
@@ -130,7 +135,7 @@ public class EEGModel {
 	 * @throws IOException Thrown if the file can't be written.
 	 */
 	public void saveFile(String fileName) throws IOException {
-		// TODO
+		
 		
 	}
 

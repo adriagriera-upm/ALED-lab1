@@ -145,7 +145,7 @@ public class EEGModel {
 				+ "%First Column = SampleIndex\n"
 				+ "%Other Columns = EEG data in microvolts with optional columns at end being unscaled Aux data\n");
 		for(int i=0; i<measurements.size();i++) {
-			ps.print(i + ", ");
+			ps.print(i%256 + ", ");
 			for(int j=0; j<measurements.get(i).numChannels();j++) {
 				ps.print(measurements.get(i).getChannel(j) + ", ");
 				
@@ -276,10 +276,17 @@ public class EEGModel {
 			
 			
 			
+			
+			
 		} else {
 			EEGModel eeg = new EEGModel();
 			eeg.createSyntheticData(1000);
-			eeg.saveFile("Synthetic.txt");
+			try {
+				eeg.saveFile("Synthetic.txt");
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			
 			
 		}
 		

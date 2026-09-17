@@ -139,7 +139,9 @@ public class EEGModel {
 		FileOutputStream fos = new FileOutputStream(fileName);
 		PrintStream ps = new PrintStream(f);
 		
-
+		
+		ps.print(fos);
+		
 		
 		
 		
@@ -264,12 +266,12 @@ public class EEGModel {
 		if (args.length > 0) {
 			EEGModel eeg = new EEGModel(args[0]);
 			eeg.plotData();
-			// TODO
+			eeg.loadFile();
 			
 		} else {
 			EEGModel eeg = new EEGModel();
 			eeg.createSyntheticData(1000);
-			// TODO
+			eeg.saveFile("Synthetic");
 			
 		}
 	}

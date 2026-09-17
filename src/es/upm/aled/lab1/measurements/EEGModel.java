@@ -137,14 +137,21 @@ public class EEGModel {
 	public void saveFile(String fileName) throws IOException {
 		File f = new File(fileName);
 		FileOutputStream fos = new FileOutputStream(fileName);
-		PrintStream ps = new PrintStream(f);
+		PrintStream ps = new PrintStream(fos);
 		
-		
-		ps.print(fos);
-		
-		
-		
-		
+		ps.print("%OpenBCI Raw EEG Data\n"
+				+ "%\n"
+				+ "%Sample Rate = 250.0 Hz\n"
+				+ "%First Column = SampleIndex\n"
+				+ "%Other Columns = EEG data in microvolts with optional columns at end being unscaled Aux data\n");
+		for(int i=0; i<measurements.size();i++) {
+			ps.print(i + ", ");
+			for(int j=0; j<measurements.get(i).numChannels();j++) {
+				ps.print(measurements.get(i).getChannel(j) + ", ");
+				
+			}
+			ps.print("\n");
+		}
 		ps.close();
 		fos.close();
 		
@@ -266,13 +273,16 @@ public class EEGModel {
 		if (args.length > 0) {
 			EEGModel eeg = new EEGModel(args[0]);
 			eeg.plotData();
-			eeg.loadFile();
+			
+			
 			
 		} else {
 			EEGModel eeg = new EEGModel();
 			eeg.createSyntheticData(1000);
-			eeg.saveFile("Synthetic");
+			eeg.saveFile("Synthetic.txt");
 			
 		}
+		
+		
 	}
 }

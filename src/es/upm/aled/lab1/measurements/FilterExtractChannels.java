@@ -28,7 +28,7 @@ public class FilterExtractChannels implements Filter {
 		int index = 0;
 		for(int i=0; i<eeg.measurements.size();i++) {
 			for(int j=0; j<eeg.measurements.get(i).numChannels();j++) {
-				if(j == newChannels[contador]) {
+				if(j == newChannels[index]) {
 					canales[j]= eeg.measurements.get(i).getChannel(index);
 					index++;
 					

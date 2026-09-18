@@ -23,30 +23,31 @@ public class FilterExtractChannels implements Filter {
 
 	@Override
 	public EEGModel applyFilter(EEGModel eeg) {
-		float[] canales = new float[newChannels.length];
+		
 		Measurement[] newmeasurements = new Measurement[eeg.measurements.size()];
 		int index = 0;
-		for(int i=0; i<eeg.measurements.size();i++) {
-			for(int j=0; j<eeg.measurements.get(i).numChannels();j++) {
-				if(j == newChannels[index]) {
-					canales[j]= eeg.measurements.get(i).getChannel(index);
-					index++;
+			for(int i=0; i<eeg.measurements.size();i++) {
+				float[] canales = new float[newChannels.length];
+				for(int j=0; j<eeg.measurements.get(i).numChannels();j++) {
+					if((j+1) == newChannels[index]) {
+						canales[index]= eeg.measurements.get(i).getChannel(j);
+						index=(index+1)%newChannels.length;
 					
-				}
-				else { 
+					}
+					else { 
 					continue;
-				}
+					}
 				
 			}
-			if(canales.length == 0) {
-				continue;
-			} else {
-				newmeasurements[i] = new Measurement(canales); //MUY CLAVE
-			}
-		
+			newmeasurements[i] = new Measurement(canales); //MUY CLAVE
+			
+				
+				
 		}
 		EEGModel neweeg = new EEGModel(newmeasurements);
 		return neweeg;
-	}
-
+		}
+	
 }
+
+

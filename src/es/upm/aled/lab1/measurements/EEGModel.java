@@ -271,8 +271,22 @@ public class EEGModel {
 
 	public static void main(String[] args) {
 		if (args.length > 0) {
-			EEGModel eeg = new EEGModel(args[0]);
-			eeg.plotData();
+			EEGModel eeg = new EEGModel("OPENBCI_raw_1.txt");
+				int[] canalesInteres = {9,10,11};
+				//Filtro canales
+				FilterExtractChannels fec = new FilterExtractChannels(canalesInteres);
+				eeg = fec.applyFilter(eeg);
+				//Filtro temporal
+				FilterExtractPeriod fep = new FilterExtractPeriod(2750,5750);
+				eeg = fep.applyFilter(eeg);
+				eeg.plotData();
+				try {
+					eeg.saveFile("Prueba.txt");
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				
+			
 			
 			
 			

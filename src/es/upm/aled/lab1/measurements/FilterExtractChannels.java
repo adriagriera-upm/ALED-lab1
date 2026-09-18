@@ -39,10 +39,7 @@ public class FilterExtractChannels implements Filter {
 					}
 				
 			}
-			newmeasurements[i] = new Measurement(canales); //MUY CLAVE
-			
-				
-				
+			newmeasurements[i] = new Measurement(canales); //MUY CLAVE		
 		}
 		EEGModel neweeg = new EEGModel(newmeasurements);
 		return neweeg;

@@ -297,6 +297,7 @@ public class EEGModel {
 			eeg.createSyntheticData(1000);
 			try {
 				eeg.saveFile("Synthetic.txt");
+				eeg.plotData();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
